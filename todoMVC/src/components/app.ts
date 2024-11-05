@@ -1,4 +1,4 @@
-import {ComponentBase, createEl} from "../../../framework/components.ts"
+import {ComponentBase, createEl} from "../../../framework"
 
 export class AppComponent extends ComponentBase {
     constructor() {
