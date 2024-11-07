@@ -1,4 +1,4 @@
-import {ComponentBase, createEl, createInputEl, createButton, createSelectOption} from "./components.ts";
+import {ComponentBase, createEl, createInputEl, createButton, createSelectOption, ContentNode} from "./components.ts";
 
 /**
  * @class ComponentBase - Base component
@@ -12,3 +12,5 @@ import {ComponentBase, createEl, createInputEl, createButton, createSelectOption
  * @function createSelectOption - create select options
  */
 export {ComponentBase, createEl, createInputEl, createButton, createSelectOption};
+
+export type {ContentNode};

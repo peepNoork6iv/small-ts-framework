@@ -16,6 +16,7 @@ export class TodoService {
         const obj: TodoModel = {id: getUid(), content: content, isDone: false};
         if (obj.content !== "") {
             this._todos.push(obj);
+            console.log(this.todos);
             return true;
         } else {
             console.log("todo not added");
