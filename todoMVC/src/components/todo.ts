@@ -1,4 +1,4 @@
-import {ComponentBase, createButton, createEl} from "../../../framework";
+import {ComponentBase, createButton, createEl, createInputEl} from "../../../framework";
 import {TodoService} from "../services/todoService.ts";
 import {TodoModel} from "../models/todoModel.ts";
 
@@ -33,11 +33,39 @@ export class TodoComponent extends ComponentBase {
 
         const markDoneButton = createButton("Mark Done", "button", () => this.todoService.toggleDoneTodo(this.todo.id));
 
+        const editSubmit = createEl<HTMLButtonElement>("button", "button", ["Edit todo"]);
+        editSubmit.type = "submit";
+
+        const editInput = createInputEl("text", "todo", true, "form-text-input");
+        editInput.value = this.todo.content;
+
+        const editForm = createEl<HTMLFormElement>("form", "", [
+            createEl("label", "form-label", [
+                "Edit Todo",
+                editInput,
+            ]),
+            editSubmit,
+        ]);
+
+        editForm.style.display = "none";
+
+        editForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const data = new FormData(editForm);
+            const todo = data.get("todo") as string;
+            this.todoService.editTodo(this.todo.id, todo);
+            this.updateContent();
+        });
+
+        const editButton = createButton("Edit", "button", () => editForm.style.display = "block");
+
         const todo: HTMLElement =
             createEl("div", "card", [
                 this.todo.content,
                 deleteButton,
                 markDoneButton,
+                editButton,
+                editForm,
             ]);
 
         if (this.todo.isDone) {
