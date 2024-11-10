@@ -9,14 +9,19 @@ export class TodoService {
         return this._todos;
     }
 
+    public set todos(todos: Array<TodoModel>) {
+        this._todos = todos;
+        this.todoListeners.forEach(listener => listener(todos));
+    }
+
     constructor() {
     }
 
     public addTodo(content: string): boolean {
         const obj: TodoModel = {id: getUid(), content: content, isDone: false};
         if (obj.content !== "") {
-            this._todos.push(obj);
-            console.log(this.todos);
+            this.todos.push(obj);
+            this.todos = this.todos;
             return true;
         } else {
             console.log("todo not added");
@@ -28,6 +33,7 @@ export class TodoService {
         for (let i = 0; i < this.todos.length; i++) {
             if (this.todos[i].id === id) {
                 this.todos[i].isDone = true;
+                this.todos = this.todos;
             }
         }
     }
@@ -36,6 +42,7 @@ export class TodoService {
         for (let i = 0; i < this.todos.length; i++) {
             if (this.todos[i].id === id) {
                 this.todos[i].content = content;
+                this.todos = this.todos;
             }
         }
     }
@@ -44,6 +51,7 @@ export class TodoService {
         for (let i = 0; i < this.todos.length; i++) {
             if (this.todos[i].id === id) {
                 this.todos.splice(i, 1);
+                this.todos = this.todos;
             }
         }
     }

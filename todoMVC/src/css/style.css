@@ -64,6 +64,7 @@ ul {
     background: #ffffff;
     border-radius: 15px;
     box-shadow: 1px 1px 3px 3px rgba(100, 100, 100, 0.02);
+    margin-bottom: 10px;
 }
 
 .form-label {
