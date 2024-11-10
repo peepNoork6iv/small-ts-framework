@@ -1,4 +1,5 @@
 import {ComponentBase, createEl, createInputEl, createButton, createSelectOption, ContentNode} from "./components.ts";
+import {getUid} from "./utils.ts";
 
 /**
  * @class ComponentBase - Base component
@@ -14,3 +15,5 @@ import {ComponentBase, createEl, createInputEl, createButton, createSelectOption
 export {ComponentBase, createEl, createInputEl, createButton, createSelectOption};
 
 export type {ContentNode};
+
+export {getUid};

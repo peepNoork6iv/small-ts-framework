@@ -1,5 +1,5 @@
 import {TodoModel} from "../models/todoModel.ts";
-import {getUid} from "../../../framework/utils.ts";
+import {getUid} from "../../../framework";
 
 export class TodoService {
     private _todos: Array<TodoModel> = []
@@ -33,27 +33,30 @@ export class TodoService {
         for (let i = 0; i < this.todos.length; i++) {
             if (this.todos[i].id === id) {
                 this.todos[i].isDone = true;
-                this.todos = this.todos;
+                break;
             }
         }
+        this.todos = this.todos;
     }
 
     public editTodo(id: number, content: string){
         for (let i = 0; i < this.todos.length; i++) {
             if (this.todos[i].id === id) {
                 this.todos[i].content = content;
-                this.todos = this.todos;
+                break;
             }
         }
+        this.todos = this.todos;
     }
 
     public removeTodo(id: number){
         for (let i = 0; i < this.todos.length; i++) {
             if (this.todos[i].id === id) {
                 this.todos.splice(i, 1);
-                this.todos = this.todos;
+                break;
             }
         }
+        this.todos = this.todos;
     }
 
     public attachTodoListener(id: number, callback:(todos: Array<TodoModel>) => void): void {
