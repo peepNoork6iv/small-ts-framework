@@ -1,4 +1,4 @@
-import {ComponentBase, ContentNode, createEl} from "../../../framework";
+import {ComponentBase, createButton, createEl} from "../../../framework";
 import {TodoService} from "../services/todoService.ts";
 import {TodoModel} from "../models/todoModel.ts";
 
@@ -16,7 +16,11 @@ export class TodoComponent extends ComponentBase {
         this.updateContent();
 
         //language=CSS
-        this.injectStyle(``);
+        this.injectStyle(`
+            .done-todo {
+                background-color: darkseagreen;
+            }
+        `);
     }
 
     public onUnMount() {
@@ -25,12 +29,23 @@ export class TodoComponent extends ComponentBase {
     }
 
     public updateContent() {
-        const todo: ContentNode = [
-            createEl("div", "card", [this.todo.content]),
-            []];
+        const deleteButton = createButton("Remove", "button", () => this.todoService.removeTodo(this.todo.id));
+
+        const markDoneButton = createButton("Mark Done", "button", () => this.todoService.toggleDoneTodo(this.todo.id));
+
+        const todo: HTMLElement =
+            createEl("div", "card", [
+                this.todo.content,
+                deleteButton,
+                markDoneButton,
+            ]);
+
+        if (this.todo.isDone) {
+            todo.classList.toggle("done-todo");
+        }
 
         this.replaceContent([
-           todo,
+            [todo, []],
         ]);
     }
 }

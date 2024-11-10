@@ -29,11 +29,16 @@ export class TodoService {
         }
     }
 
-    public markDoneTodo(id: number) {
+    public toggleDoneTodo(id: number) {
         for (let i = 0; i < this.todos.length; i++) {
             if (this.todos[i].id === id) {
-                this.todos[i].isDone = true;
-                break;
+                if (!this.todos[i].isDone) {
+                    this.todos[i].isDone = true;
+                    break;
+                } else {
+                    this.todos[i].isDone = false;
+                    break;
+                }
             }
         }
         this.todos = this.todos;
