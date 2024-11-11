@@ -1,4 +1,5 @@
 import {getUid} from "./utils";
+import {ElOptions} from "./models.ts";
 
 export type ContentNode = [HTMLElement | ComponentBase, Array<ContentNode>];
 
@@ -71,7 +72,7 @@ export abstract class ComponentBase {
     }
 }
 
-export function createEl<T extends HTMLElement>(tag: string, className?: string, content?: (string | HTMLElement)[]): T {
+export function createEl<T extends HTMLElement>(tag: string, elOptions?: ElOptions, content?: (string | HTMLElement)[]): T {
     const el = document.createElement(tag);
     if (content) {
         for (const contentEl of content) {
@@ -82,29 +83,56 @@ export function createEl<T extends HTMLElement>(tag: string, className?: string,
             }
         }
     }
-    if (className) el.className = className;
+    if (elOptions) {
+        if(elOptions.className) {
+            el.className = elOptions.className;
+        }
+        if(elOptions.onClick) {
+            el.addEventListener("click", elOptions.onClick);
+        }
+        if(elOptions.onKeyDown) {
+            el.addEventListener("keydown", elOptions.onKeyDown);
+        }
+        if(elOptions.attributes) {
+            for (const [key, value] of Object.entries(elOptions.attributes)) {
+                if (value !== undefined) {
+                    if (typeof value === "boolean") {
+                        (el as any)[key] = value;
+                    } else {
+                        el.setAttribute(key, value.toString());
+                    }
+                }
+            }
+        }
+    }
     return el as T;
 }
 
 export function createInputEl(type: string, name: string, required: boolean = false, className?: string): HTMLInputElement {
-    const el = document.createElement("input");
-    el.name = name;
-    el.required = required;
-    el.type = type;
-    if (className) el.className = className;
-    return el;
+    const elOptions: ElOptions = {
+        className: className,
+        attributes: {
+            name: name,
+            required: required,
+            type: type,
+        }
+    }
+    return createEl<HTMLInputElement>("input", elOptions);
 }
 
 export function createButton(label: string, className: string, onClick: () => void): HTMLButtonElement {
-    const el = createEl<HTMLButtonElement>("button", className, [label]);
-    el.type = "button";
-    el.addEventListener("click", onClick);
-    return el;
+    const elOptions = {
+        className: className,
+        onClick: onClick,
+        attributes: {
+            type: "button",
+        }
+    }
+    return createEl<HTMLButtonElement>("button", elOptions, [label]);
 }
 
 export function createSelectOption(value: string, label: string, initial?: boolean): HTMLOptionElement {
-    const el = createEl<HTMLOptionElement>("option", "", [label]);
-    el.value = value;
+    const el = createEl<HTMLOptionElement>("option", {attributes: {value: value}}, [label]);
     if (initial) {
         el.disabled = true;
         el.selected = true;
