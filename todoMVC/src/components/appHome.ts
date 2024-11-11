@@ -27,7 +27,7 @@ export class AppHomeComponent extends ComponentBase {
         ];
 
         this.replaceContent([
-            [createEl("div", "container container-narrow"), content],
+            [createEl("div", {className: "container container-narrow"}), content],
         ])
     }
 }

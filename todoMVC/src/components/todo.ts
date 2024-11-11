@@ -48,19 +48,18 @@ export class TodoComponent extends ComponentBase {
     }
 
     public updateContent() {
-        const todoContent = createEl("div", "todo-content", [this.todo.content])
+        const todoContent = createEl("div", {className: "todo-content"}, [this.todo.content])
 
         const deleteButton = createButton("🗑️", "button", () => this.todoService.removeTodo(this.todo.id));
 
         const markDoneButton = createButton("", "button", () => this.todoService.toggleDoneTodo(this.todo.id));
 
-        const editSubmit = createEl<HTMLButtonElement>("button", "button", ["Edit"]);
-        editSubmit.type = "submit";
+        const editSubmit = createEl<HTMLButtonElement>("button", {className: "button", attributes: {type: "submit"}}, ["Edit"]);
 
         const editInput = createInputEl("text", "todo", true, "form-text-input");
         editInput.value = this.todo.content;
 
-        const editForm = createEl<HTMLFormElement>("form", "edit-form", [
+        const editForm = createEl<HTMLFormElement>("form", {className: "edit-form"}, [
             editInput,
             editSubmit,
         ]);
@@ -84,7 +83,7 @@ export class TodoComponent extends ComponentBase {
         });
 
         const todo: HTMLElement =
-            createEl("div", "card", [
+            createEl("div", {className: "card"}, [
                 markDoneButton,
                 todoContent,
                 deleteButton,

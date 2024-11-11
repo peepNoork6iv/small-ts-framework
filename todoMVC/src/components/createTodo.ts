@@ -20,10 +20,9 @@ export class CreateTodoComponent extends ComponentBase {
     }
 
     public updateContent() {
-        const createTodo = createEl<HTMLButtonElement>("button", "button", ["Create"]);
-        createTodo.type = "submit";
+        const createTodo = createEl<HTMLButtonElement>("button", {className: "button", attributes: {type: "submit"}}, ["Create"]);
 
-        const form = createEl<HTMLFormElement>("form", "", [
+        const form = createEl<HTMLFormElement>("form", {}, [
             createInputEl("text", "content", true, "form-text-input"),
             createTodo,
         ]);
@@ -39,8 +38,8 @@ export class CreateTodoComponent extends ComponentBase {
         });
 
         this.replaceContent([
-            [createEl("div", "card", [
-                createEl("div", "title", ["New todo"]),
+            [createEl("div", {className: "card"}, [
+                createEl("div", {className: "title"}, ["New todo"]),
                 form,
             ]), []],
         ])

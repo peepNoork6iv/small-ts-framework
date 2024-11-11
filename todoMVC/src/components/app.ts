@@ -22,7 +22,7 @@ export class AppComponent extends ComponentBase {
 
     public updateContent() {
         this.replaceContent([
-            [createEl("h1", "title", ["todo app"]),[]],
+            [createEl("h1", {className: "title"}, ["todo app"]),[]],
             [new AppHomeComponent(this.todoService), []],
         ])
     }

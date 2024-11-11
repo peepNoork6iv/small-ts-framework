@@ -29,7 +29,7 @@ export class TodoListComponent extends ComponentBase {
         }
 
         this.replaceContent([
-            [createEl("div", "todo-container"), todoNodes],
+            [createEl("div", {className: "todo-container"}), todoNodes],
         ])
     }
 }
