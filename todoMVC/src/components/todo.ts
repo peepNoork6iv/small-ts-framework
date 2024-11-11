@@ -20,6 +20,25 @@ export class TodoComponent extends ComponentBase {
             .done-todo {
                 background-color: darkseagreen;
             }
+            
+            .card {
+                display: flex;
+            }
+            
+            .todo-content {
+                flex-grow: 1;
+                font-size: var(--font-size-large);
+            }
+            
+            .edit-form {
+                display: flex;
+                flex-direction: row;
+                flex-grow: 1;
+            }
+            
+            .form-text-input {
+                flex-grow: 2;
+            }
         `);
     }
 
@@ -29,21 +48,20 @@ export class TodoComponent extends ComponentBase {
     }
 
     public updateContent() {
-        const deleteButton = createButton("Remove", "button", () => this.todoService.removeTodo(this.todo.id));
+        const todoContent = createEl("div", "todo-content", [this.todo.content])
 
-        const markDoneButton = createButton("Mark Done", "button", () => this.todoService.toggleDoneTodo(this.todo.id));
+        const deleteButton = createButton("🗑️", "button", () => this.todoService.removeTodo(this.todo.id));
 
-        const editSubmit = createEl<HTMLButtonElement>("button", "button", ["Edit todo"]);
+        const markDoneButton = createButton("", "button", () => this.todoService.toggleDoneTodo(this.todo.id));
+
+        const editSubmit = createEl<HTMLButtonElement>("button", "button", ["Edit"]);
         editSubmit.type = "submit";
 
         const editInput = createInputEl("text", "todo", true, "form-text-input");
         editInput.value = this.todo.content;
 
-        const editForm = createEl<HTMLFormElement>("form", "", [
-            createEl("label", "form-label", [
-                "Edit Todo",
-                editInput,
-            ]),
+        const editForm = createEl<HTMLFormElement>("form", "edit-form", [
+            editInput,
             editSubmit,
         ]);
 
@@ -57,19 +75,27 @@ export class TodoComponent extends ComponentBase {
             this.updateContent();
         });
 
-        const editButton = createButton("Edit", "button", () => editForm.style.display = "block");
+        const editButton = createButton("📝", "button", () => {
+            editForm.style.display = "flex";
+            editButton.style.display = "none";
+            todoContent.style.display = "none";
+            deleteButton.style.display = "none";
+            markDoneButton.style.display = "none";
+        });
 
         const todo: HTMLElement =
             createEl("div", "card", [
-                this.todo.content,
-                deleteButton,
                 markDoneButton,
+                todoContent,
+                deleteButton,
                 editButton,
                 editForm,
             ]);
 
         if (this.todo.isDone) {
             todo.classList.toggle("done-todo");
+            todoContent.style.textDecoration = "line-through";
+            markDoneButton.innerText = "X"
         }
 
         this.replaceContent([

@@ -12,11 +12,15 @@ export class CreateTodoComponent extends ComponentBase {
         this.updateContent();
 
         //language=CSS
-        this.injectStyle(``);
+        this.injectStyle(`
+            form {
+                display: flex;
+            }
+        `);
     }
 
     public updateContent() {
-        const createTodo = createEl<HTMLButtonElement>("button", "", ["Create ToDo"]);
+        const createTodo = createEl<HTMLButtonElement>("button", "button", ["Create"]);
         createTodo.type = "submit";
 
         const form = createEl<HTMLFormElement>("form", "", [
