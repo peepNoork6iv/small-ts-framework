@@ -3,6 +3,7 @@ export interface ElOptions {
     className?: string;
     onClick?: () => void;
     onKeyDown?: () => void;
+    onDblClick?: () => void;
     attributes?: Attributes;
 }
 

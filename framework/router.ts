@@ -22,6 +22,11 @@ export class RouterBase {
         window.history.pushState({}, "", path);
     }
 
+    public handleLocation = ()=> {
+        const location = window.location.pathname;
+        this.setRoute(location);
+    }
+
     public attachRouteListener(id: number, callback: (value: RouteModel) => void) {
         this.routeListeners.set(id, callback);
     }

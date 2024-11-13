@@ -48,7 +48,6 @@ export class TodoComponent extends ComponentBase {
     }
 
     public updateContent() {
-        const todoContent = createEl("div", {className: "todo-content"}, [this.todo.content])
 
         const deleteButton = createButton("🗑️", "button", () => this.todoService.removeTodo(this.todo.id));
 
@@ -66,6 +65,17 @@ export class TodoComponent extends ComponentBase {
 
         editForm.style.display = "none";
 
+        const editTodo = () => {
+            editForm.style.display = "flex";
+            editButton.style.display = "none";
+            todoContent.style.display = "none";
+            deleteButton.style.display = "none";
+            markDoneButton.style.display = "none";
+        }
+
+        const todoContent = createEl("div", {className: "todo-content"}, [this.todo.content]);
+
+
         editForm.addEventListener("submit", async (event) => {
             event.preventDefault();
             const data = new FormData(editForm);
@@ -74,16 +84,10 @@ export class TodoComponent extends ComponentBase {
             this.updateContent();
         });
 
-        const editButton = createButton("📝", "button", () => {
-            editForm.style.display = "flex";
-            editButton.style.display = "none";
-            todoContent.style.display = "none";
-            deleteButton.style.display = "none";
-            markDoneButton.style.display = "none";
-        });
+        const editButton = createButton("📝", "button", editTodo);
 
         const todo: HTMLElement =
-            createEl("div", {className: "card"}, [
+            createEl("div", {className: "card", onDblClick: editTodo}, [
                 markDoneButton,
                 todoContent,
                 deleteButton,

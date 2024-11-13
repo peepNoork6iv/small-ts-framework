@@ -27,6 +27,9 @@ export function createEl<T extends HTMLElement>(tag: string, elOptions?: ElOptio
     if(elOptions.onKeyDown) {
       el.addEventListener("keydown", elOptions.onKeyDown);
     }
+    if(elOptions.onDblClick) {
+      el.addEventListener("dblclick", elOptions.onDblClick);
+    }
     if(elOptions.attributes) {
       for (const [key, value] of Object.entries(elOptions.attributes)) {
         if (value !== undefined) {

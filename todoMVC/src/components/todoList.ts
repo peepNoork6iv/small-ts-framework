@@ -24,6 +24,7 @@ export class TodoListComponent extends ComponentBase {
     public onUnMount() {
         super.onUnMount();
         this.todoService.detachTodoListener(this.componentId);
+        this.routingService.detachRouteListener(this.componentId)
     }
 
     public updateContent() {

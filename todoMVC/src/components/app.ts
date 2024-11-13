@@ -12,13 +12,10 @@ export class AppComponent extends ComponentBase {
         super("App");
 
         this.updateContent();
-
-        // this.replaceContent([
-        //     [createEl("div", "title-large", ["It's Alive!!!"]), []],
-        // ])
     }
 
     public updateContent() {
+        window.onpopstate = this.routingService.handleLocation
         if (this.routingService.validPaths.includes(window.location.pathname)) {
             this.replaceContent([
                 [new AppHeaderComponent(this.routingService), []],
