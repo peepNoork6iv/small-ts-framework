@@ -1,4 +1,4 @@
-import {ComponentBase, ContentNode, createEl} from "../../../framework";
+import {ComponentBase, ContentNode, createButton, createEl} from "../../../framework";
 import {TodoService} from "../services/todoService.ts";
 import {TodoComponent} from "./todo.ts";
 import {RoutingService} from "../services/routingService.ts";
@@ -15,7 +15,7 @@ export class TodoListComponent extends ComponentBase {
 
         this.todoService.attachTodoListener(this.componentId, this.updateContent.bind(this));
         this.routingService.attachRouteListener(this.componentId, this.updateContent.bind(this));
-        this.updateContent();
+        //this.updateContent();
 
         //language=CSS
         this.injectStyle(``);
@@ -29,6 +29,9 @@ export class TodoListComponent extends ComponentBase {
 
     public updateContent() {
         const todoNodes: Array<ContentNode> = [];
+        todoNodes.push([createEl("div", {className: "card"}), [
+            [createButton("Clear Completed", "button button-wide", () => this.todoService.removeDoneTodos(this.todoService.todos)), []]
+        ]],);
         for (const todo of this.todoService.todos) {
             if (this.routingService.currentRoute.pathName === "/") {
                 todoNodes.push([new TodoComponent(todo, this.todoService), []]);

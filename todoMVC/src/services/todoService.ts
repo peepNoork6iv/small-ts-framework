@@ -64,6 +64,10 @@ export class TodoService {
         this.todos = this.todos;
     }
 
+    public removeDoneTodos(todos: Array<TodoModel>) {
+        this.todos = todos.filter(todo => !todo.isDone);
+    }
+
     public attachTodoListener(id: number, callback:(todos: Array<TodoModel>) => void): void {
         this.todoListeners.set(id, callback);
     }
