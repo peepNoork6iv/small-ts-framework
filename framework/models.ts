@@ -1,3 +1,4 @@
+// Element Options interface
 export interface ElOptions {
     className?: string;
     onClick?: () => void;
@@ -8,4 +9,9 @@ export interface ElOptions {
 // Add any attributes
 interface Attributes extends Partial<HTMLElement>{
     [key: string]: any;
+}
+
+// route model
+export interface RouteModel {
+    pathName: string,
 }
