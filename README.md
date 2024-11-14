@@ -2,7 +2,24 @@
 
 This is a small framework project written in TypeScript. It contains as well a small to do list application as an example application.
 
-## Component Framework and Utility Functions
+## How to run?
+
+### Prerequisites:
+
+- Node and NPM must be installed 
+
+### Run example:
+
+- `cd todoMVC` Locate into todoMCV directory in terminal.
+- `npm install` Install Node Modules.
+- `npm run dev` Startup dev server.
+
+### Use framework:
+
+- Copy `framework` directory into your project.
+- Setup file structure according to example program.
+
+## Component Framework, Router and Utility Functions
 
 ### Overview
 This library provides foundational classes and functions for building and managing UI components with structured lifecycle events, DOM rendering, and customizable styles. Key features include:
